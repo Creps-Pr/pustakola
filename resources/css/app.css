@@ -1,0 +1,183 @@
+@import "@fontsource-variable/inter";
+@import "tailwindcss";
+
+@source "../views";
+@source "../js";
+@source "../../app/Support";
+
+/*
+ |--------------------------------------------------------------------------
+ | Tema
+ |--------------------------------------------------------------------------
+ | Warna merek (brand) memakai skala Indigo. Ganti nilai di bawah ini
+ | untuk mengubah identitas visual seluruh aplikasi sekaligus.
+ */
+@theme {
+    --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+    --color-brand-50: var(--color-indigo-50);
+    --color-brand-100: var(--color-indigo-100);
+    --color-brand-200: var(--color-indigo-200);
+    --color-brand-300: var(--color-indigo-300);
+    --color-brand-400: var(--color-indigo-400);
+    --color-brand-500: var(--color-indigo-500);
+    --color-brand-600: var(--color-indigo-600);
+    --color-brand-700: var(--color-indigo-700);
+    --color-brand-800: var(--color-indigo-800);
+    --color-brand-900: var(--color-indigo-900);
+    --color-brand-950: var(--color-indigo-950);
+
+    --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px rgb(15 23 42 / 0.05);
+    --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 12px 32px rgb(15 23 42 / 0.10);
+
+    --animate-toast-in: toast-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    --animate-fade-up: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    @keyframes toast-in {
+        from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}
+
+@layer base {
+    html {
+        font-feature-settings: "cv11", "ss01";
+        -webkit-text-size-adjust: 100%;
+    }
+
+    *,
+    ::after,
+    ::before {
+        border-color: var(--color-slate-200);
+    }
+
+    body {
+        font-family: var(--font-sans);
+    }
+
+    h1, h2, h3, h4 {
+        letter-spacing: -0.015em;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+
+    ::selection {
+        background: var(--color-brand-200);
+        color: var(--color-brand-950);
+    }
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+@layer components {
+    /* ---------- Tombol ---------- */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold whitespace-nowrap transition duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .btn-primary {
+        @apply bg-brand-600 text-white shadow-sm hover:bg-brand-700 active:bg-brand-800;
+    }
+
+    .btn-secondary {
+        @apply bg-white text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 hover:text-slate-900;
+    }
+
+    .btn-danger {
+        @apply bg-rose-600 text-white shadow-sm hover:bg-rose-700 focus-visible:outline-rose-600;
+    }
+
+    .btn-soft {
+        @apply bg-brand-50 text-brand-700 hover:bg-brand-100;
+    }
+
+    .btn-ghost {
+        @apply text-slate-600 hover:bg-slate-100 hover:text-slate-900;
+    }
+
+    .btn-sm {
+        @apply gap-1.5 rounded-lg px-3 py-1.5 text-[13px];
+    }
+
+    .btn-lg {
+        @apply rounded-xl px-6 py-3 text-[15px];
+    }
+
+    .btn-icon {
+        @apply inline-flex size-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-brand-600;
+    }
+
+    /* ---------- Formulir ---------- */
+    .label {
+        @apply mb-1.5 block text-sm font-medium text-slate-700;
+    }
+
+    .input {
+        @apply block w-full rounded-lg border-0 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 transition placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-600 disabled:bg-slate-50 disabled:text-slate-500;
+    }
+
+    .input-error {
+        @apply ring-rose-400 focus:ring-rose-500;
+    }
+
+    select.input {
+        @apply appearance-none bg-no-repeat pr-10;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-position: right 0.75rem center;
+        background-size: 1.125rem;
+    }
+
+    textarea.input {
+        @apply min-h-24 resize-y;
+    }
+
+    /* ---------- Kartu & tabel ---------- */
+    .card {
+        @apply rounded-2xl bg-white shadow-soft ring-1 ring-slate-200/70;
+    }
+
+    .tbl {
+        @apply w-full text-left text-sm;
+    }
+
+    .tbl thead th {
+        @apply bg-slate-50/80 px-5 py-3 text-xs font-semibold tracking-wider whitespace-nowrap text-slate-500 uppercase;
+    }
+
+    .tbl tbody tr {
+        @apply border-t border-slate-100 transition-colors hover:bg-slate-50/60;
+    }
+
+    .tbl tbody td {
+        @apply px-5 py-3.5 align-middle text-slate-700;
+    }
+
+    /* ---------- Tipografi pendukung ---------- */
+    .eyebrow {
+        @apply text-xs font-semibold tracking-[0.14em] text-brand-600 uppercase;
+    }
+
+    .link {
+        @apply font-medium text-brand-600 transition hover:text-brand-700 hover:underline hover:underline-offset-4;
+    }
+}
+
+@media print {
+    body {
+        background: #fff !important;
+    }
+
+    .card {
+        box-shadow: none !important;
+    }
+}
